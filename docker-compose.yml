@@ -1,0 +1,37 @@
+services:
+  tflow-api:
+    build: .
+    container_name: tflow_api
+    restart: unless-stopped
+    ports:
+      - "6969:6969"
+    env_file:
+      - .env
+    networks:
+      - tflow-net
+    depends_on:
+      - laundry_db
+
+  # Reference to the existing Postgres container
+  # This just connects it to the shared network
+  laundry_db:
+    image: postgres:15-alpine
+    container_name: laundry_db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - tflow-net
+
+networks:
+  tflow-net:
+    driver: bridge
+
+volumes:
+  pgdata:
+    external: true
+    name: be-laundry_pgdata
