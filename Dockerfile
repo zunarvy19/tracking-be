@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY package.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copy source and build
 COPY tsconfig.json ./
@@ -19,7 +19,7 @@ WORKDIR /app
 
 # Install production deps only
 COPY package.json ./
-RUN npm install --omit=dev
+RUN npm install --omit=dev --legacy-peer-deps
 
 # Copy built output and drizzle migrations
 COPY --from=builder /app/dist ./dist
