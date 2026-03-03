@@ -30,7 +30,7 @@ COPY drizzle.config.ts ./
 COPY src ./src
 COPY tsconfig.json ./
 # Install tsx for running seed/migration scripts
-RUN npm install tsx drizzle-kit
+RUN npm install tsx drizzle-kit --legacy-peer-deps
 
 # Non-root user for security
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
