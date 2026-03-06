@@ -76,12 +76,17 @@ export const dashboardService = {
       return Math.round(((cur - prev) / prev) * 100);
     };
 
+    const currentSaving = current.income - current.expense;
+    const lastSaving = last.income - last.expense;
+
     return {
       balance: balance.toFixed(2),
       income: current.income.toFixed(2),
       expense: current.expense.toFixed(2),
+      saving: currentSaving.toFixed(2),
       incomeTrend: calcTrend(current.income, last.income),
       expenseTrend: calcTrend(current.expense, last.expense),
+      savingTrend: calcTrend(currentSaving, lastSaving),
       balanceTrend: calcTrend(
         balance,
         allTime.income - last.income - (allTime.expense - last.expense)
