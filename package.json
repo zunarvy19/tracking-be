@@ -12,6 +12,7 @@
     "db:seed": "tsx src/db/seed.ts"
   },
   "dependencies": {
+    "@opentelemetry/api": "^1.9.1",
     "better-auth": "^1.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
