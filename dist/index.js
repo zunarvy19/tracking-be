@@ -11,10 +11,19 @@ import userRoutes from "./routes/user.routes.js";
 const app = express();
 const PORT = process.env.PORT || 3001;
 // ─── Middleware ──────────────────────────────────────────────────────────────
-app.use(cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+const allowedOrigins = process.env.CORS_ORIGIN.split(",");
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Invalid origin"));
+      }
+    },
     credentials: true,
-}));
+  }),
+);
 app.use(express.json());
 // ─── Routes ─────────────────────────────────────────────────────────────────
 app.use("/api/auth", authRoutes);
@@ -26,10 +35,10 @@ app.use("/api/reports", reportRoutes);
 app.use("/api/users", userRoutes);
 // ─── Health Check ───────────────────────────────────────────────────────────
 app.get("/api/health", (_req, res) => {
-    res.json({ status: "ok", timestamp: new Date().toISOString() });
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 // ─── Start Server ───────────────────────────────────────────────────────────
 app.listen(PORT, () => {
-    console.log(`🚀 API server running on http://localhost:${PORT}`);
+  console.log(`🚀 API server running on http://localhost:${PORT}`);
 });
 export default app;
