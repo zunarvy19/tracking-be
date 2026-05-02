@@ -38,7 +38,7 @@ app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 // ─── Start Server ───────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`🚀 API server running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 API server running on http://0.0.0.0:${PORT}`);
 });
 export default app;
