@@ -11,7 +11,7 @@ import reportRoutes from "./routes/report.routes.js";
 import userRoutes from "./routes/user.routes.js";
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 6969
 
 // ─── Middleware ──────────────────────────────────────────────────────────────
 
